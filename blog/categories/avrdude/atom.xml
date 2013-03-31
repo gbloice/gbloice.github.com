@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: avrdude | Making Things Work]]></title>
+  <link href="http://gbloice.github.com/blog/categories/avrdude/atom.xml" rel="self"/>
+  <link href="http://gbloice.github.com/"/>
+  <updated>2013-03-31T22:40:49+01:00</updated>
+  <id>http://gbloice.github.com/</id>
+  <author>
+    <name><![CDATA[Graham Bloice]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Intro to JeeNodes]]></title>
+    <link href="http://gbloice.github.com/blog/2013/03/31/intro-to-jeenodes/"/>
+    <updated>2013-03-31T13:53:00+01:00</updated>
+    <id>http://gbloice.github.com/blog/2013/03/31/intro-to-jeenodes</id>
+    <content type="html"><![CDATA[<p>To make a room sensor I'm going to use a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a> (JNu) reporting back to a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> (JNUSB) running on my home server.  After receiving the items from the <a href="http://jeelabs.com/">JeeLabs shop</a> I connected them up to test on the bench.  I soldered the aerial wires to each item, cutting them to 82mm for the 868MHz radios.</p>
+
+<p>The JNUSB comes ready flashed with the <a href="https://github.com/jcw/jeelib/tree/master/examples/RF12/RF12demo">RFM12Demo</a> sketch from the <a href="https://github.com/jcw/jeelib">JeeLib</a> examples directory so simply requires plugging in to a USB port and then opening a terminal to the appropriate COM port created by the USB drivers.  As I'm testing on a Windows system, I looked in Device Manager | Ports to see what pseudo com port number was, and then opened <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a> for that com port.  Set the baud rate to 57600 and hit enter to see the standard RF12demo response:</p>
+
+<p>```
+[RF12demo.7] A i1 g5 @ 868 MHz</p>
+
+<p>Available commands:
+  <nn> i     - set node ID (standard node ids are 1..26)</p>
+
+<pre><code>           (or enter an uppercase 'A'..'Z' to set id)
+</code></pre>
+
+<p>  <n> b      - set MHz band (4 = 433, 8 = 868, 9 = 915)
+  <nnn> g    - set network group (RFM12 only allows 212, 0 = any)
+  <n> c      - set collect mode (advanced, normally 0)
+  t          - broadcast max-size test packet, with ack
+  ...,<nn> a - send data packet to node <nn>, with ack
+  ...,<nn> s - send data packet to node <nn>, no ack
+  <n> l      - turn activity LED on PB1 on or off
+  <n> q      - set quiet mode (1 = don't report bad packets)
+Remote control commands:
+  <hchi>,<hclo>,<addr>,<cmd> f     - FS20 command (868 MHz)
+  <addr>,<dev>,<on> k              - KAKU command (433 MHz)
+Current configuration:
+ A i1 g5 @ 868 MHz
+```</p>
+
+<p>Note that I've issued the group command (5g) to set the group to the group used by the JNu in the next section.</p>
+
+<p>For the JNu, things are a little more complicated as it doesn't appear to come flashed with a sketch, nor does it have a bootloader.  JeeLabs has a guide to compiling and flashing the micro (<a href="http://jeelabs.org/2013/03/03/programming-the-jnu-v3-part-1/">Pt1</a>, <a href="http://jeelabs.org/2013/03/07/programming-the-jn%C2%B5-v3-part-2/">Pt2</a>, <a href="http://jeelabs.org/2013/03/20/programming-the-jnu-again/">Pt3</a> and <a href="http://jeelabs.org/2013/03/21/programming-the-jn%C2%B5-at-last/">Pt4</a>) but I had some issues completing the flash as I'm using a <a href="http://dangerousprototypes.com/docs/Bus_Pirate">Bus Pirate</a>(BP) as my ISP programmer and I couldn't persuade the IDE to upload the hex file.  To workaround this I followed the instructions from Pt2 and manually fired up avrdude to upload the sketch using the BP.  After uploading the sketch, the terminal connected to the JNUSB started showing the "blip" messages from the JNu, with a new message every 60 seconds:</p>
+
+<p><code>
+OK 22 1 0 0 0 1 118 0
+OK 22 2 0 0 0 1 117 118
+OK 22 3 0 0 0 1 117 118
+</code></p>
+
+<p>The values in the string are the reception OK flag, the node ID (22), the 32 bit message count which increments every message, and the power supply voltage before and after the transmission.  Note the first message doesn't have an after voltage as 0 as this lags by 1 transmission.  The voltage value is scaled to 1.0V = 0, 6.0V = 250, so 117 is (117 / 50 + 1.0) 3.34V, which is the power supply from the BP.  I also set the JNUSB to quiet mode (1q) so random noise isn't reported to the terminal.</p>
+]]></content>
+  </entry>
+  
+</feed>
