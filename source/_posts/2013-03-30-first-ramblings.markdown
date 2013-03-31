@@ -4,7 +4,7 @@ title: "First Ramblings"
 date: 2013-03-30 23:18
 comments: true
 categories: 
-published: false
+published: true
 ---
 
 For this first post, I'll intoduce the general themes of this blog and a little about myself.
