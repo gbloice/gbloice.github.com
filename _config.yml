@@ -3,8 +3,8 @@
 # ----------------------- #
 
 url: http://gbloice.github.com
-title: Making Things Work
-subtitle: Thoughts on Physical Computing and Home Automation.
+title: Making Stuff Work
+subtitle: Thoughts on Small Scale Computing and Home Automation.
 author: Graham Bloice
 simple_search: http://google.com/search
 description: home automation microcontrollers
@@ -65,7 +65,7 @@ github_skip_forks: true
 
 # Twitter
 twitter_user:
-twitter_tweet_button: true
+twitter_tweet_button: false
 
 # Google +1
 google_plus_one: true
@@ -85,11 +85,11 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
-disqus_show_comment_count: false
+disqus_short_name: makingstuffwork
+disqus_show_comment_count: true
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: UA-39757646-1
 
 # Facebook Like
 facebook_like: false
