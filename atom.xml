@@ -4,7 +4,7 @@
   <title><![CDATA[Making Things Work]]></title>
   <link href="http://gbloice.github.com/atom.xml" rel="self"/>
   <link href="http://gbloice.github.com/"/>
-  <updated>2013-03-31T13:41:18+01:00</updated>
+  <updated>2013-03-31T13:45:42+01:00</updated>
   <id>http://gbloice.github.com/</id>
   <author>
     <name><![CDATA[Graham Bloice]]></name>
@@ -12,5 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[First Ramblings]]></title>
+    <link href="http://gbloice.github.com/blog/2013/03/30/first-ramblings/"/>
+    <updated>2013-03-30T23:18:00+00:00</updated>
+    <id>http://gbloice.github.com/blog/2013/03/30/first-ramblings</id>
+    <content type="html"><![CDATA[<p>For this first post, I&#8217;ll intoduce the general themes of this blog and a little about myself.</p>
+
+<p>So what sort of things will appear here?  In no particular order:</p>
+
+<ul>
+<li>Hardware, usually microcrontrollers, e.g. AVR, Arm.</li>
+<li>Software, for the above hardware, but also PC based (Windows and Linux).</li>
+<li>Home Automation, hardware and software.</li>
+<li>Other random topics that take my fancy.</li>
+</ul>
+
+
+<p>The initial items of hardware under discussion will be some small wireless sensor boards from <a href="http://jeelabs.org">Jeelabs</a>, namely the <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> and the <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a>, and their associated radio module, the <a href="http://www.hoperf.com/rf/fsk/21.htm">Hope RF RFM12B</a>.</p>
+
+<p>For radiator control I&#8217;ll be using the <a href="http://www.homexpertbyhoneywell.com/en-DE/Products/rondostat/Pages/HR-20.aspx">Honeywell HR20-Style</a> programmable thermostatic radiator valve (TRV) with <a href="http://sourceforge.net/projects/openhr20/">OpenHR20</a> firmware, fitting RFM12B boards to the TRV&#8217;s to allow wireless communications.  I&#8217;ll also be creating some room sensors (temperature, humidity and PIR for presence) with some hacked AirWick air fresheners.</p>
+
+<p>Software items covered will initally be the firmware for the JeeNodes, OpenHR20 for the radiator valves and PC based Home Automation monitoring and Control of some flavour</p>
+
+<p>Who am I?  I&#8217;m a software engineer working on SCADA (Industrial Control Systems) in Aberdeen, UK.  I&#8217;ve been programming since my earliest experiments with a programmable calculator in the late 1970&#8217;s, and now number a variety of languages under my belt.</p>
+]]></content>
+  </entry>
   
 </feed>
