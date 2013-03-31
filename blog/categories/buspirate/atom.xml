@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: buspirate | Making Things Work]]></title>
+  <title><![CDATA[Category: buspirate | Making Stuff Work]]></title>
   <link href="http://gbloice.github.com/blog/categories/buspirate/atom.xml" rel="self"/>
   <link href="http://gbloice.github.com/"/>
-  <updated>2013-03-31T22:40:49+01:00</updated>
+  <updated>2013-03-31T22:44:56+01:00</updated>
   <id>http://gbloice.github.com/</id>
   <author>
     <name><![CDATA[Graham Bloice]]></name>
