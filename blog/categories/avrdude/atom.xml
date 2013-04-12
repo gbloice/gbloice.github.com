@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: avrdude | Making Stuff Work]]></title>
-  <link href="http://gbloice.github.com/blog/categories/avrdude/atom.xml" rel="self"/>
-  <link href="http://gbloice.github.com/"/>
-  <updated>2013-03-31T23:11:02+01:00</updated>
-  <id>http://gbloice.github.com/</id>
+  <link href="http://graham.bloice.co.uk/blog/categories/avrdude/atom.xml" rel="self"/>
+  <link href="http://graham.bloice.co.uk/"/>
+  <updated>2013-04-12T23:48:47+01:00</updated>
+  <id>http://graham.bloice.co.uk/</id>
   <author>
     <name><![CDATA[Graham Bloice]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Intro to JeeNodes]]></title>
-    <link href="http://gbloice.github.com/blog/2013/03/31/intro-to-jeenodes/"/>
+    <link href="http://graham.bloice.co.uk/blog/2013/03/31/intro-to-jeenodes/"/>
     <updated>2013-03-31T13:53:00+01:00</updated>
-    <id>http://gbloice.github.com/blog/2013/03/31/intro-to-jeenodes</id>
+    <id>http://graham.bloice.co.uk/blog/2013/03/31/intro-to-jeenodes</id>
     <content type="html"><![CDATA[<p>To make a room sensor I'm going to use a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a> (JNu) reporting back to a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> (JNUSB) running on my home server.  After receiving the items from the <a href="http://jeelabs.com/">JeeLabs shop</a> I connected them up to test on the bench.  I soldered the aerial wires to each item, cutting them to 82mm for the 868MHz radios.</p>
 
 <p>The JNUSB comes ready flashed with the <a href="https://github.com/jcw/jeelib/tree/master/examples/RF12/RF12demo">RFM12Demo</a> sketch from the <a href="https://github.com/jcw/jeelib">JeeLib</a> examples directory so simply requires plugging in to a USB port and then opening a terminal to the appropriate COM port created by the USB drivers.  As I'm testing on a Windows system, I looked in Device Manager | Ports to see what pseudo com port number was, and then opened <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a> for that com port.  Set the baud rate to 57600 and hit enter to see the standard RF12demo response:</p>

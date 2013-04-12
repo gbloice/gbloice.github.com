@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://gbloice.github.com/sitemap.xml 
+Sitemap: http://graham.bloice.co.uk/sitemap.xml 
