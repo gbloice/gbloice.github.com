@@ -3,7 +3,7 @@ layout: post
 title: "Intro to HouseMon"
 date: 2013-04-12 23:39
 comments: true
-categories: jeenode housemon angularjs
+categories: [jeenode, housemon, angularjs]
 published: false
 ---
 

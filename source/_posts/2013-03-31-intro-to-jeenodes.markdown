@@ -3,7 +3,7 @@ layout: post
 title: "Intro to JeeNodes"
 date: 2013-03-31 13:53
 comments: true
-categories: jeenode arduino buspirate avrdude
+categories: [jeenode, arduino, buspirate, avrdude]
 published: true
 ---
 
