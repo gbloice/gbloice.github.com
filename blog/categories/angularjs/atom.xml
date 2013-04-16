@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: angularjs | Making Stuff Work]]></title>
+  <link href="http://graham.bloice.co.uk/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="http://graham.bloice.co.uk/"/>
+  <updated>2013-04-17T00:00:04+01:00</updated>
+  <id>http://graham.bloice.co.uk/</id>
+  <author>
+    <name><![CDATA[Graham Bloice]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Intro to HouseMon]]></title>
+    <link href="http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon/"/>
+    <updated>2013-04-12T23:39:00+01:00</updated>
+    <id>http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon</id>
+    <content type="html"><![CDATA[<p>Having got a room sensor up and running on the bench, I now want to log the values somewhere.  I'm still searching for a Home Automation server that ticks all the boxes, so for now I'll use HouseMon from Jeelabs.  The birds-eye view of how it works is <a href="http://jeelabs.org/tag/housemon/">here</a>, and the source can be found on GitHub <a href="https://github.com/jcw/housemon">here</a>.</p>
+
+<!--more-->
+
+
+<p>On my Linux server I cloned the github repo, installed the prerequisites and ran it up to check it worked.  To customise HouseMon for my room node I created a local nodeMap, briqs/nodeMap-local.coffee, that maps the RF12 group and node ID (5 and 22 respectively) to the airwickNode driver, and also names the current location of the sensor.  I then created a new driver, drivers/airwickNode.coffee, that describes how to extract the data from the rf12 packet transmitted by the airwick node.</p>
+
+<p>The local nodeMap is relatively self-explanatory:</p>
+
+<p>``` coffeescript nodeMap-local.coffee
+exports.rf12nodes =
+  5:</p>
+
+<pre><code>22: 'airwickNode'
+</code></pre>
+
+<p>exports.locations =
+  'RF12:5:22': title: 'computer room'
+```</p>
+
+<p>but the driver is more interesting:</p>
+
+<p>``` coffeescript airwickNode.coffee
+module.exports =</p>
+
+<p>  announcer: 11</p>
+
+<p>  descriptions:</p>
+
+<pre><code>ping:
+  title: 'Ping count'
+  min: 0
+age:
+  title: 'Estimated age'
+  unit: 'days'
+  min: 0
+vpre:
+  title: 'Vcc before send'
+  unit: 'V'
+  min: 0
+  factor: 2
+  scale: 2
+vpost:
+  title: 'Vcc after send'
+  unit: 'V'
+  min: 0
+  factor: 2
+  scale: 2
+temp:
+  title: 'Temperature'
+  unit: '°C'
+  scale: 1
+  min: -50
+  max: 50
+humi:
+  title: 'Relative humidity'
+  unit: '%'
+  scale: 1
+  min: 0
+  max: 100
+</code></pre>
+
+<p>  feed: 'rf12.packet'</p>
+
+<p>  decode: (raw, cb) -></p>
+
+<pre><code>count = raw.readUInt32LE(1)
+t = raw.readUInt16LE(8, true)
+h = raw.readUInt16LE(10, true)
+result =
+  ping: count
+  age: count / (86400 / 60) | 0
+  temp: t
+  humi: h
+  vpre: 50 + raw[6]
+  vpost: 50 + raw[7]
+cb result
+</code></pre>
+
+<p>```</p>
+
+<p>Each field in the packet is given a description, and where appropriate some units, min and max values and scale and factor values.  Scale and factor are used to convert the fixed point integer value from the driver into a decimal value for display.  For example, a temperature value of 226 is 22.6°C, so this requires a scale of 1 to divide it by 10.  The Vcc values require both scale and factor and an offset to turn a value of 117 into 3.34V.  The offset is supplied by the decode function where 50 is added to the raw packet value, giving 167, a factor of 2 gives 334, and a scale of 2 divides it by 100 to give 3.34.</p>
+
+<p>With these additions, the Housemon instance is then configured from the admin page:</p>
+
+<p><img src="/images/HouseMon-Admin.png" title="HouseMon - Admin" ></p>
+
+<p>Note the items I've installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I've attached the JeeNode to, in my case ttyUSB0.</p>
+
+<p>The following images show the HouseMon Readings, Status and Graphs pages, with the temperature selected on the Graph and the timespan set to 24 hours.</p>
+
+<p><img src="/images/HouseMon-Readings.png" title="HouseMon - Readings" ></p>
+
+<p><img src="/images/HouseMon-Status.png" title="HouseMon - Status" ></p>
+
+<p><img src="/images/HouseMon-Graph.png" title="HouseMon - Graphs" ></p>
+]]></content>
+  </entry>
+  
+</feed>

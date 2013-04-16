@@ -1,24 +1,112 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Making Stuff Work]]></title>
-  <link href="http://graham.bloice.co.uk/atom.xml" rel="self"/>
-  <link href="http://graham.bloice.co.uk/"/>
-  <updated>2013-04-17T00:00:04+01:00</updated>
-  <id>http://graham.bloice.co.uk/</id>
-  <author>
-    <name><![CDATA[Graham Bloice]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Intro to HouseMon - Making Stuff Work</title>
+  <meta name="author" content="Graham Bloice">
 
   
-  <entry>
-    <title type="html"><![CDATA[Intro to HouseMon]]></title>
-    <link href="http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon/"/>
-    <updated>2013-04-12T23:39:00+01:00</updated>
-    <id>http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon</id>
-    <content type="html"><![CDATA[<p>Having got a room sensor up and running on the bench, I now want to log the values somewhere.  I&#8217;m still searching for a Home Automation server that ticks all the boxes, so for now I&#8217;ll use HouseMon from Jeelabs.  The birds-eye view of how it works is <a href="http://jeelabs.org/tag/housemon/">here</a>, and the source can be found on GitHub <a href="https://github.com/jcw/housemon">here</a>.</p>
+  <meta name="description" content="Having got a room sensor up and running on the bench, I now want to log the values somewhere. I&#8217;m still searching for a Home Automation server &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Making Stuff Work" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39757646-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Making Stuff Work</a></h1>
+  
+    <h2>Thoughts on Small Scale Computing and Home Automation.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:graham.bloice.co.uk" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Intro to HouseMon</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-12T23:39:00+01:00" pubdate data-updated="true">Apr 12<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Having got a room sensor up and running on the bench, I now want to log the values somewhere.  I&#8217;m still searching for a Home Automation server that ticks all the boxes, so for now I&#8217;ll use HouseMon from Jeelabs.  The birds-eye view of how it works is <a href="http://jeelabs.org/tag/housemon/">here</a>, and the source can be found on GitHub <a href="https://github.com/jcw/housemon">here</a>.</p>
 
 <!--more-->
 
@@ -153,116 +241,178 @@
 
 <p>With these additions, the Housemon instance is then configured from the admin page:</p>
 
-<p><img src="http://graham.bloice.co.uk/images/HouseMon-Admin.png" title="HouseMon - Admin" ></p>
+<p><img src="/images/HouseMon-Admin.png" title="HouseMon - Admin" ></p>
 
 <p>Note the items I&#8217;ve installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I&#8217;ve attached the JeeNode to, in my case ttyUSB0.</p>
 
 <p>The following images show the HouseMon Readings, Status and Graphs pages, with the temperature selected on the Graph and the timespan set to 24 hours.</p>
 
-<p><img src="http://graham.bloice.co.uk/images/HouseMon-Readings.png" title="HouseMon - Readings" ></p>
+<p><img src="/images/HouseMon-Readings.png" title="HouseMon - Readings" ></p>
 
-<p><img src="http://graham.bloice.co.uk/images/HouseMon-Status.png" title="HouseMon - Status" ></p>
+<p><img src="/images/HouseMon-Status.png" title="HouseMon - Status" ></p>
 
-<p><img src="http://graham.bloice.co.uk/images/HouseMon-Graph.png" title="HouseMon - Graphs" ></p>
-]]></content>
-  </entry>
+<p><img src="/images/HouseMon-Graph.png" title="HouseMon - Graphs" ></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[Intro to JeeNodes]]></title>
-    <link href="http://graham.bloice.co.uk/blog/2013/03/31/intro-to-jeenodes/"/>
-    <updated>2013-03-31T13:53:00+01:00</updated>
-    <id>http://graham.bloice.co.uk/blog/2013/03/31/intro-to-jeenodes</id>
-    <content type="html"><![CDATA[<p>To make a room sensor I&#8217;m going to use a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a> (JNu) reporting back to a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> (JNUSB) running on my home server.</p>
 
-<!--more-->
+<span class="byline author vcard">Posted by <span class="fn">Graham Bloice</span></span>
+
+      
 
 
-<p>After receiving the items from the <a href="http://jeelabs.com/">JeeLabs shop</a> I connected them up to test on the bench.  I soldered the aerial wires to each item, cutting them to 82mm for the 868MHz radios.</p>
-
-<p>The JNUSB comes ready flashed with the <a href="https://github.com/jcw/jeelib/tree/master/examples/RF12/RF12demo">RFM12Demo</a> sketch from the <a href="https://github.com/jcw/jeelib">JeeLib</a> examples directory so simply requires plugging in to a USB port and then opening a terminal to the appropriate COM port created by the USB drivers.  As I&#8217;m testing on a Windows system, I looked in Device Manager | Ports to see what pseudo com port number was, and then opened <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a> for that com port.  Set the baud rate to 57600 and hit enter to see the standard RF12demo response:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[RF12demo.7] A i1 g5 @ 868 MHz
-</span><span class='line'>
-</span><span class='line'>Available commands:
-</span><span class='line'>  &lt;nn&gt; i     - set node ID (standard node ids are 1..26)
-</span><span class='line'>               (or enter an uppercase 'A'..'Z' to set id)
-</span><span class='line'>  &lt;n&gt; b      - set MHz band (4 = 433, 8 = 868, 9 = 915)
-</span><span class='line'>  &lt;nnn&gt; g    - set network group (RFM12 only allows 212, 0 = any)
-</span><span class='line'>  &lt;n&gt; c      - set collect mode (advanced, normally 0)
-</span><span class='line'>  t          - broadcast max-size test packet, with ack
-</span><span class='line'>  ...,&lt;nn&gt; a - send data packet to node &lt;nn&gt;, with ack
-</span><span class='line'>  ...,&lt;nn&gt; s - send data packet to node &lt;nn&gt;, no ack
-</span><span class='line'>  &lt;n&gt; l      - turn activity LED on PB1 on or off
-</span><span class='line'>  &lt;n&gt; q      - set quiet mode (1 = don't report bad packets)
-</span><span class='line'>Remote control commands:
-</span><span class='line'>  &lt;hchi&gt;,&lt;hclo&gt;,&lt;addr&gt;,&lt;cmd&gt; f     - FS20 command (868 MHz)
-</span><span class='line'>  &lt;addr&gt;,&lt;dev&gt;,&lt;on&gt; k              - KAKU command (433 MHz)
-</span><span class='line'>Current configuration:
-</span><span class='line'> A i1 g5 @ 868 MHz</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Note that I&#8217;ve issued the group command (5g) to set the group to the group used by the JNu in the next section.</p>
-
-<p>For the JNu, things are a little more complicated as it doesn&#8217;t appear to come flashed with a sketch, nor does it have a bootloader.  JeeLabs has a guide to compiling and flashing the micro (<a href="http://jeelabs.org/2013/03/03/programming-the-jnu-v3-part-1/">Pt1</a>, <a href="http://jeelabs.org/2013/03/07/programming-the-jn%C2%B5-v3-part-2/">Pt2</a>, <a href="http://jeelabs.org/2013/03/20/programming-the-jnu-again/">Pt3</a> and <a href="http://jeelabs.org/2013/03/21/programming-the-jn%C2%B5-at-last/">Pt4</a>) but I had some issues completing the flash as I&#8217;m using a <a href="http://dangerousprototypes.com/docs/Bus_Pirate">Bus Pirate</a>(BP) as my ISP programmer and I couldn&#8217;t persuade the IDE to upload the hex file.  To workaround this I followed the instructions from Pt2 and manually fired up avrdude to upload the sketch using the BP.  After uploading the sketch, the terminal connected to the JNUSB started showing the &#8220;blip&#8221; messages from the JNu, with a new message every 60 seconds:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>OK 22 1 0 0 0 1 118 0
-</span><span class='line'>OK 22 2 0 0 0 1 117 118
-</span><span class='line'>OK 22 3 0 0 0 1 117 118</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The values in the string are the reception OK flag, the node ID (22), the 32 bit message count which increments every message, and the power supply voltage before and after the transmission.  Note the first message doesn&#8217;t have an after voltage as 0 as this lags by 1 transmission.  The voltage value is scaled to 1.0V = 0, 6.0V = 250, so 117 is (117 / 50 + 1.0) 3.34V, which is the power supply from the BP.  I also set the JNUSB to quiet mode (1q) so random noise isn&#8217;t reported to the terminal.</p>
-]]></content>
-  </entry>
+
+
   
-  <entry>
-    <title type="html"><![CDATA[First Ramblings]]></title>
-    <link href="http://graham.bloice.co.uk/blog/2013/03/30/first-ramblings/"/>
-    <updated>2013-03-30T23:18:00+00:00</updated>
-    <id>http://graham.bloice.co.uk/blog/2013/03/30/first-ramblings</id>
-    <content type="html"><![CDATA[<p>For this first post, I&#8217;ll intoduce the general themes of this blog and a little about myself.</p>
-
-<p>So what sort of things will appear here?  In no particular order:</p>
-
-<ul>
-<li>Hardware, usually microcrontrollers, e.g. AVR, Arm.</li>
-<li>Software, for the above hardware, but also PC based (Windows and Linux).</li>
-<li>Home Automation, hardware and software.</li>
-<li>Other random topics that take my fancy.</li>
-</ul>
 
 
-<!--more-->
+<time datetime="2013-04-12T23:39:00+01:00" pubdate data-updated="true">Apr 12<span>th</span>, 2013</time>
+      
 
-
-<p>The initial items of hardware under discussion will be some small wireless sensor boards from <a href="http://jeelabs.org">Jeelabs</a>, namely the <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> and the <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a>, and their associated radio module, the <a href="http://www.hoperf.com/rf/fsk/21.htm">Hope RF RFM12B</a>.</p>
-
-<p>For radiator control I&#8217;ll be using the <a href="http://www.homexpertbyhoneywell.com/en-DE/Products/rondostat/Pages/HR-20.aspx">Honeywell HR20-Style</a> programmable thermostatic radiator valve (TRV) with <a href="http://sourceforge.net/projects/openhr20/">OpenHR20</a> firmware, fitting RFM12B boards to the TRV&#8217;s to allow wireless communications.  I&#8217;ll also be creating some room sensors (temperature, humidity and PIR for presence) with some hacked AirWick air fresheners.</p>
-
-<p>Software items covered will initally be the firmware for the JeeNodes, OpenHR20 for the radiator valves and PC based Home Automation monitoring and Control of some flavour</p>
-
-<p>Who am I?  I&#8217;m a software engineer working on SCADA (Industrial Control Systems) in Aberdeen, UK.  I&#8217;ve been programming since my earliest experiments with a programmable calculator in the late 1970&#8217;s, and now number a variety of languages under my belt.</p>
-]]></content>
-  </entry>
+<span class="categories">
   
-</feed>
+    <a class='category' href='/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/blog/categories/housemon/'>housemon</a>, <a class='category' href='/blog/categories/jeenode/'>jeenode</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/31/intro-to-jeenodes/" title="Previous Post: Intro to JeeNodes">&laquo; Intro to JeeNodes</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/04/12/intro-to-housemon/">Intro to HouseMon</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/31/intro-to-jeenodes/">Intro to JeeNodes</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/30/first-ramblings/">First Ramblings</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/gbloice">@gbloice</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'gbloice',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Graham Bloice -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'makingstuffwork';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon/';
+        var disqus_url = 'http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+</body>
+</html>
