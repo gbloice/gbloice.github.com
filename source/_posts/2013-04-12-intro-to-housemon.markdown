@@ -87,16 +87,16 @@ Each field in the packet is given a description, and where appropriate some unit
 
 With these additions, the Housemon instance is then configured from the admin page:
 
-{% img /images/HouseMon-Admin.png HouseMon - Admin %}
+{% img /images/HouseMon-Admin.PNG HouseMon - Admin %}
 
 Note the items I've installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I've attached the JeeNode to, in my case ttyUSB0.
 
 The following images show the HouseMon Readings, Status and Graphs pages, with the temperature selected on the Graph and the timespan set to 24 hours.
 
-{% img /images/HouseMon-Readings.png HouseMon - Readings %}
+{% img /images/HouseMon-Readings.PNG HouseMon - Readings %}
 
-{% img /images/HouseMon-Status.png HouseMon - Status %}
+{% img /images/HouseMon-Status.PNG HouseMon - Status %}
 
-{% img /images/HouseMon-Graph.png HouseMon - Graphs %}
+{% img /images/HouseMon-Graph.PNG HouseMon - Graphs %}
 
 
