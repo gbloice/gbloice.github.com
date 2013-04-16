@@ -15,6 +15,8 @@ So what sort of things will appear here?  In no particular order:
 * Software, for the above hardware, but also PC based (Windows and Linux).
 * Home Automation, hardware and software.
 * Other random topics that take my fancy.
+
+<!--more-->
  
 The initial items of hardware under discussion will be some small wireless sensor boards from [Jeelabs][jl], namely the [JeeNode USB][jlusb] and the [JeeNode Micro][jlu], and their associated radio module, the [Hope RF RFM12B](http://www.hoperf.com/rf/fsk/21.htm).
 

@@ -7,7 +7,11 @@ categories: [jeenode, arduino, buspirate, avrdude]
 published: true
 ---
 
-To make a room sensor I'm going to use a [JeeNode Micro][jlu] (JNu) reporting back to a [JeeNode USB][jlusb] (JNUSB) running on my home server.  After receiving the items from the [JeeLabs shop][jlshop] I connected them up to test on the bench.  I soldered the aerial wires to each item, cutting them to 82mm for the 868MHz radios.
+To make a room sensor I'm going to use a [JeeNode Micro][jlu] (JNu) reporting back to a [JeeNode USB][jlusb] (JNUSB) running on my home server.
+
+<!--more-->
+
+After receiving the items from the [JeeLabs shop][jlshop] I connected them up to test on the bench.  I soldered the aerial wires to each item, cutting them to 82mm for the 868MHz radios.
 
 The JNUSB comes ready flashed with the [RFM12Demo][jl-rf12demo] sketch from the [JeeLib][jlib] examples directory so simply requires plugging in to a USB port and then opening a terminal to the appropriate COM port created by the USB drivers.  As I'm testing on a Windows system, I looked in Device Manager | Ports to see what pseudo com port number was, and then opened [PuTTY][putty] for that com port.  Set the baud rate to 57600 and hit enter to see the standard RF12demo response:
 
