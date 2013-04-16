@@ -4,7 +4,7 @@
   <title><![CDATA[Category: jeenode | Making Stuff Work]]></title>
   <link href="http://graham.bloice.co.uk/blog/categories/jeenode/atom.xml" rel="self"/>
   <link href="http://graham.bloice.co.uk/"/>
-  <updated>2013-04-17T00:00:04+01:00</updated>
+  <updated>2013-04-17T00:05:18+01:00</updated>
   <id>http://graham.bloice.co.uk/</id>
   <author>
     <name><![CDATA[Graham Bloice]]></name>
@@ -103,17 +103,17 @@ cb result
 
 <p>With these additions, the Housemon instance is then configured from the admin page:</p>
 
-<p><img src="/images/HouseMon-Admin.png" title="HouseMon - Admin" ></p>
+<p><img src="/images/HouseMon-Admin.PNG" title="HouseMon - Admin" ></p>
 
 <p>Note the items I've installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I've attached the JeeNode to, in my case ttyUSB0.</p>
 
 <p>The following images show the HouseMon Readings, Status and Graphs pages, with the temperature selected on the Graph and the timespan set to 24 hours.</p>
 
-<p><img src="/images/HouseMon-Readings.png" title="HouseMon - Readings" ></p>
+<p><img src="/images/HouseMon-Readings.PNG" title="HouseMon - Readings" ></p>
 
-<p><img src="/images/HouseMon-Status.png" title="HouseMon - Status" ></p>
+<p><img src="/images/HouseMon-Status.PNG" title="HouseMon - Status" ></p>
 
-<p><img src="/images/HouseMon-Graph.png" title="HouseMon - Graphs" ></p>
+<p><img src="/images/HouseMon-Graph.PNG" title="HouseMon - Graphs" ></p>
 ]]></content>
   </entry>
   
