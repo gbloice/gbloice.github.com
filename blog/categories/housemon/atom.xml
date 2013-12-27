@@ -4,7 +4,7 @@
   <title><![CDATA[Category: housemon | Making Stuff Work]]></title>
   <link href="http://graham.bloice.co.uk/blog/categories/housemon/atom.xml" rel="self"/>
   <link href="http://graham.bloice.co.uk/"/>
-  <updated>2013-04-17T00:05:18+01:00</updated>
+  <updated>2013-12-27T00:06:54+00:00</updated>
   <id>http://graham.bloice.co.uk/</id>
   <author>
     <name><![CDATA[Graham Bloice]]></name>
@@ -14,11 +14,50 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Improving HouseMon installation]]></title>
+    <link href="http://graham.bloice.co.uk/blog/2013/05/07/improving-housemon-installation/"/>
+    <updated>2013-05-07T23:51:00+01:00</updated>
+    <id>http://graham.bloice.co.uk/blog/2013/05/07/improving-housemon-installation</id>
+    <content type="html"><![CDATA[<p>The sample instructions on setting up HouseMon are OK for initial testing, but require a bit more work for a permanent installation.  This post describes how I managed it.</p>
+
+<!--more-->
+
+
+<p>The redis server should be moved to run as a service, I used the <a href="http://redis.io/topics/quickstart">quickstart</a> guide from the redis documentation as described in the section &ldquo;Installing Redis more properly&rdquo;, modified a little to suit my preferences.  Instead of using the port number to describe the redis instance I used &ldquo;housemon&rdquo;, the only issue this caused was with the init script that uses the value both as a port number and the instance identifier, so I modified the start of that script a little:</p>
+
+<p>``` diff redis_init_script
+&mdash;&ndash; ../redis-2.6.12/utils/redis_init_script     2013-03-29 16:42:39.000000000 +0000
++++ /etc/init.d/redis_housemon  2013-05-07 23:44:01.042072032 +0100
+@@ -4,11 +4,12 @@
+ # as it does use of the /proc filesystem.</p>
+
+<p> REDISPORT=6379
++REDISINST=housemon
+ EXEC=/usr/local/bin/redis-server
+ CLIEXEC=/usr/local/bin/redis-cli</p>
+
+<p>-PIDFILE=/var/run/redis<em>${REDISPORT}.pid
+-CONF=&ldquo;/etc/redis/${REDISPORT}.conf&rdquo;
++PIDFILE=/var/run/redis</em>${REDISINST}.pid
++CONF=&ldquo;/etc/redis/${REDISINST}.conf&rdquo;</p>
+
+<p> case &ldquo;$1&rdquo; in</p>
+
+<pre><code> start)
+</code></pre>
+
+<p>```</p>
+
+<p>I also used <a href="https://npmjs.org/package/forever">forever</a> to run the housemon server, install it with <code>sudo npm install -g forever</code> and then start Housemon with <code>forever start app.js</code>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Intro to HouseMon]]></title>
     <link href="http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon/"/>
     <updated>2013-04-12T23:39:00+01:00</updated>
     <id>http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon</id>
-    <content type="html"><![CDATA[<p>Having got a room sensor up and running on the bench, I now want to log the values somewhere.  I'm still searching for a Home Automation server that ticks all the boxes, so for now I'll use HouseMon from Jeelabs.  The birds-eye view of how it works is <a href="http://jeelabs.org/tag/housemon/">here</a>, and the source can be found on GitHub <a href="https://github.com/jcw/housemon">here</a>.</p>
+    <content type="html"><![CDATA[<p>Having got a room sensor up and running on the bench, I now want to log the values somewhere.  I&rsquo;m still searching for a Home Automation server that ticks all the boxes, so for now I&rsquo;ll use HouseMon from Jeelabs.  The birds-eye view of how it works is <a href="http://jeelabs.org/tag/housemon/">here</a>, and the source can be found on GitHub <a href="https://github.com/jcw/housemon">here</a>.</p>
 
 <!--more-->
 
@@ -35,7 +74,7 @@ exports.rf12nodes =
 </code></pre>
 
 <p>exports.locations =
-  'RF12:5:22': title: 'computer room'
+  &lsquo;RF12:5:22&rsquo;: title: &lsquo;computer room&rsquo;
 ```</p>
 
 <p>but the driver is more interesting:</p>
@@ -80,9 +119,9 @@ humi:
   max: 100
 </code></pre>
 
-<p>  feed: 'rf12.packet'</p>
+<p>  feed: &lsquo;rf12.packet&rsquo;</p>
 
-<p>  decode: (raw, cb) -></p>
+<p>  decode: (raw, cb) &ndash;></p>
 
 <pre><code>count = raw.readUInt32LE(1)
 t = raw.readUInt16LE(8, true)
@@ -103,17 +142,17 @@ cb result
 
 <p>With these additions, the Housemon instance is then configured from the admin page:</p>
 
-<p><img src="/images/HouseMon-Admin.PNG" title="HouseMon - Admin" ></p>
+<p><img src="/images/HouseMon-Admin.PNG" title="HouseMon &ndash; Admin" ></p>
 
-<p>Note the items I've installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I've attached the JeeNode to, in my case ttyUSB0.</p>
+<p>Note the items I&rsquo;ve installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I&rsquo;ve attached the JeeNode to, in my case ttyUSB0.</p>
 
 <p>The following images show the HouseMon Readings, Status and Graphs pages, with the temperature selected on the Graph and the timespan set to 24 hours.</p>
 
-<p><img src="/images/HouseMon-Readings.PNG" title="HouseMon - Readings" ></p>
+<p><img src="/images/HouseMon-Readings.PNG" title="HouseMon &ndash; Readings" ></p>
 
-<p><img src="/images/HouseMon-Status.PNG" title="HouseMon - Status" ></p>
+<p><img src="/images/HouseMon-Status.PNG" title="HouseMon &ndash; Status" ></p>
 
-<p><img src="/images/HouseMon-Graph.PNG" title="HouseMon - Graphs" ></p>
+<p><img src="/images/HouseMon-Graph.PNG" title="HouseMon &ndash; Graphs" ></p>
 ]]></content>
   </entry>
   

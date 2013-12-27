@@ -4,7 +4,7 @@
   <title><![CDATA[Making Stuff Work]]></title>
   <link href="http://graham.bloice.co.uk/atom.xml" rel="self"/>
   <link href="http://graham.bloice.co.uk/"/>
-  <updated>2013-04-17T00:05:18+01:00</updated>
+  <updated>2013-12-27T00:06:54+00:00</updated>
   <id>http://graham.bloice.co.uk/</id>
   <author>
     <name><![CDATA[Graham Bloice]]></name>
@@ -14,11 +14,64 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Improving HouseMon Installation]]></title>
+    <link href="http://graham.bloice.co.uk/blog/2013/05/07/improving-housemon-installation/"/>
+    <updated>2013-05-07T23:51:00+01:00</updated>
+    <id>http://graham.bloice.co.uk/blog/2013/05/07/improving-housemon-installation</id>
+    <content type="html"><![CDATA[<p>The sample instructions on setting up HouseMon are OK for initial testing, but require a bit more work for a permanent installation.  This post describes how I managed it.</p>
+
+<!--more-->
+
+
+<p>The redis server should be moved to run as a service, I used the <a href="http://redis.io/topics/quickstart">quickstart</a> guide from the redis documentation as described in the section &ldquo;Installing Redis more properly&rdquo;, modified a little to suit my preferences.  Instead of using the port number to describe the redis instance I used &ldquo;housemon&rdquo;, the only issue this caused was with the init script that uses the value both as a port number and the instance identifier, so I modified the start of that script a little:</p>
+
+<figure class='code'><figcaption><span>redis_init_script</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='diff'><span class='line'><span class="gd">--- ../redis-2.6.12/utils/redis_init_script     2013-03-29 16:42:39.000000000 +0000</span>
+</span><span class='line'><span class="gi">+++ /etc/init.d/redis_housemon  2013-05-07 23:44:01.042072032 +0100</span>
+</span><span class='line'><span class="gu">@@ -4,11 +4,12 @@</span>
+</span><span class='line'> # as it does use of the /proc filesystem.
+</span><span class='line'>
+</span><span class='line'> REDISPORT=6379
+</span><span class='line'><span class="gi">+REDISINST=housemon</span>
+</span><span class='line'> EXEC=/usr/local/bin/redis-server
+</span><span class='line'> CLIEXEC=/usr/local/bin/redis-cli
+</span><span class='line'>
+</span><span class='line'><span class="gd">-PIDFILE=/var/run/redis_${REDISPORT}.pid</span>
+</span><span class='line'><span class="gd">-CONF=&quot;/etc/redis/${REDISPORT}.conf&quot;</span>
+</span><span class='line'><span class="gi">+PIDFILE=/var/run/redis_${REDISINST}.pid</span>
+</span><span class='line'><span class="gi">+CONF=&quot;/etc/redis/${REDISINST}.conf&quot;</span>
+</span><span class='line'>
+</span><span class='line'> case &quot;$1&quot; in
+</span><span class='line'>     start)
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I also used <a href="https://npmjs.org/package/forever">forever</a> to run the housemon server, install it with <code>sudo npm install -g forever</code> and then start Housemon with <code>forever start app.js</code>.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Intro to HouseMon]]></title>
     <link href="http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon/"/>
     <updated>2013-04-12T23:39:00+01:00</updated>
     <id>http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon</id>
-    <content type="html"><![CDATA[<p>Having got a room sensor up and running on the bench, I now want to log the values somewhere.  I&#8217;m still searching for a Home Automation server that ticks all the boxes, so for now I&#8217;ll use HouseMon from Jeelabs.  The birds-eye view of how it works is <a href="http://jeelabs.org/tag/housemon/">here</a>, and the source can be found on GitHub <a href="https://github.com/jcw/housemon">here</a>.</p>
+    <content type="html"><![CDATA[<p>Having got a room sensor up and running on the bench, I now want to log the values somewhere.  I&rsquo;m still searching for a Home Automation server that ticks all the boxes, so for now I&rsquo;ll use HouseMon from Jeelabs.  The birds-eye view of how it works is <a href="http://jeelabs.org/tag/housemon/">here</a>, and the source can be found on GitHub <a href="https://github.com/jcw/housemon">here</a>.</p>
 
 <!--more-->
 
@@ -155,7 +208,7 @@
 
 <p><img src="http://graham.bloice.co.uk/images/HouseMon-Admin.PNG" title="HouseMon - Admin" ></p>
 
-<p>Note the items I&#8217;ve installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I&#8217;ve attached the JeeNode to, in my case ttyUSB0.</p>
+<p>Note the items I&rsquo;ve installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I&rsquo;ve attached the JeeNode to, in my case ttyUSB0.</p>
 
 <p>The following images show the HouseMon Readings, Status and Graphs pages, with the temperature selected on the Graph and the timespan set to 24 hours.</p>
 
@@ -168,18 +221,50 @@
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[Airwick Room Node]]></title>
+    <link href="http://graham.bloice.co.uk/blog/2013/04/07/airwick-room-node/"/>
+    <updated>2013-04-07T00:24:22+01:00</updated>
+    <id>http://graham.bloice.co.uk/blog/2013/04/07/airwick-room-node</id>
+    <content type="html"><![CDATA[<p>To create a room sensor node with the JNu, I&rsquo;ve attached a <a href="http://www.adafruit.com/products/385">AM2302</a> (also known as a DHT22) temperature and humidity sensor and modified the radio blip sketch to communicate with the sensor and return the data in the radio blip payload.</p>
+
+<!--more-->
+
+
+<p>The sensor has 4 pins, 3 of which are used; Vdd, Data, and Ground, and these are connected to the JNu +, R and G pins of the single port on the JNu.  A 10K&#x2126; pullup resistor is connected between the Vdd and Data pins.</p>
+
+<p>The sketch used is in the <a href="https://github.com/gbloice/AirWick">Airwick</a> github repo and an Arduino <a href="http://playground.arduino.cc/Main/DHTLib">DHT22 library</a>.  The sketch differs from the normal radio blip by calling the read22 routine to start a conversion attempt and then if successful, reading the resulting temperature and humidity values.  These floating point values are then multiplied by 10 and converted to integers for transmission over the radio, along with the status of the sensor conversion attempt.  The resulting payload can then be observed using the JNUSB:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>OK 22 93 1 0 0 2 117 118 224 0 243 1 0
+</span><span class='line'>OK 22 94 1 0 0 2 117 118 225 0 245 1 0
+</span><span class='line'>OK 22 95 1 0 0 2 117 118 225 0 242 1 0
+</span><span class='line'>OK 22 96 1 0 0 2 117 118 0 0 0 0 255
+</span><span class='line'>OK 22 97 1 0 0 2 117 118 226 0 237 1 0
+</span><span class='line'>OK 22 98 1 0 0 2 117 118 228 0 236 1 0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The first part of the data is the same as the standard radio blip, the values at the back end are the temperature and the humidity (16 bit little endian values) and the sensor conversion status (single byte).  In the case of the last entry <code>OK 22 98 1 0 0 2 117 118 228 0 236 1 0</code> the value <code>228 0</code> is the temperature (22.8°C), the value <code>236 1</code> is the humidity (49.2%) and the status is <code>0</code> (OK).  Note the one entry where the temperature and humidity values are 0 and the status is 255 which indicates a sensor conversion failure.  These occur occasionally for unknown reasons.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Intro to JeeNodes]]></title>
     <link href="http://graham.bloice.co.uk/blog/2013/03/31/intro-to-jeenodes/"/>
     <updated>2013-03-31T13:53:00+01:00</updated>
     <id>http://graham.bloice.co.uk/blog/2013/03/31/intro-to-jeenodes</id>
-    <content type="html"><![CDATA[<p>To make a room sensor I&#8217;m going to use a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a> (JNu) reporting back to a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> (JNUSB) running on my home server.</p>
+    <content type="html"><![CDATA[<p>To make a room sensor I&rsquo;m going to use a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a> (JNu) reporting back to a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> (JNUSB) running on my home server.</p>
 
 <!--more-->
 
 
 <p>After receiving the items from the <a href="http://jeelabs.com/">JeeLabs shop</a> I connected them up to test on the bench.  I soldered the aerial wires to each item, cutting them to 82mm for the 868MHz radios.</p>
 
-<p>The JNUSB comes ready flashed with the <a href="https://github.com/jcw/jeelib/tree/master/examples/RF12/RF12demo">RFM12Demo</a> sketch from the <a href="https://github.com/jcw/jeelib">JeeLib</a> examples directory so simply requires plugging in to a USB port and then opening a terminal to the appropriate COM port created by the USB drivers.  As I&#8217;m testing on a Windows system, I looked in Device Manager | Ports to see what pseudo com port number was, and then opened <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a> for that com port.  Set the baud rate to 57600 and hit enter to see the standard RF12demo response:</p>
+<p>The JNUSB comes ready flashed with the <a href="https://github.com/jcw/jeelib/tree/master/examples/RF12/RF12demo">RFM12Demo</a> sketch from the <a href="https://github.com/jcw/jeelib">JeeLib</a> examples directory so simply requires plugging in to a USB port and then opening a terminal to the appropriate COM port created by the USB drivers.  As I&rsquo;m testing on a Windows system, I looked in Device Manager | Ports to see what pseudo com port number was, and then opened <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a> for that com port.  Set the baud rate to 57600 and hit enter to see the standard RF12demo response:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -219,9 +304,9 @@
 </span><span class='line'> A i1 g5 @ 868 MHz</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Note that I&#8217;ve issued the group command (5g) to set the group to the group used by the JNu in the next section.</p>
+<p>Note that I&rsquo;ve issued the group command (5g) to set the group to the group used by the JNu in the next section.</p>
 
-<p>For the JNu, things are a little more complicated as it doesn&#8217;t appear to come flashed with a sketch, nor does it have a bootloader.  JeeLabs has a guide to compiling and flashing the micro (<a href="http://jeelabs.org/2013/03/03/programming-the-jnu-v3-part-1/">Pt1</a>, <a href="http://jeelabs.org/2013/03/07/programming-the-jn%C2%B5-v3-part-2/">Pt2</a>, <a href="http://jeelabs.org/2013/03/20/programming-the-jnu-again/">Pt3</a> and <a href="http://jeelabs.org/2013/03/21/programming-the-jn%C2%B5-at-last/">Pt4</a>) but I had some issues completing the flash as I&#8217;m using a <a href="http://dangerousprototypes.com/docs/Bus_Pirate">Bus Pirate</a>(BP) as my ISP programmer and I couldn&#8217;t persuade the IDE to upload the hex file.  To workaround this I followed the instructions from Pt2 and manually fired up avrdude to upload the sketch using the BP.  After uploading the sketch, the terminal connected to the JNUSB started showing the &#8220;blip&#8221; messages from the JNu, with a new message every 60 seconds:</p>
+<p>For the JNu, things are a little more complicated as it doesn&rsquo;t appear to come flashed with a sketch, nor does it have a bootloader.  JeeLabs has a guide to compiling and flashing the micro (<a href="http://jeelabs.org/2013/03/03/programming-the-jnu-v3-part-1/">Pt1</a>, <a href="http://jeelabs.org/2013/03/07/programming-the-jn%C2%B5-v3-part-2/">Pt2</a>, <a href="http://jeelabs.org/2013/03/20/programming-the-jnu-again/">Pt3</a> and <a href="http://jeelabs.org/2013/03/21/programming-the-jn%C2%B5-at-last/">Pt4</a>) but I had some issues completing the flash as I&rsquo;m using a <a href="http://dangerousprototypes.com/docs/Bus_Pirate">Bus Pirate</a>(BP) as my ISP programmer and I couldn&rsquo;t persuade the IDE to upload the hex file.  To workaround this I followed the instructions from Pt2 and manually fired up avrdude to upload the sketch using the BP.  After uploading the sketch, the terminal connected to the JNUSB started showing the &ldquo;blip&rdquo; messages from the JNu, with a new message every 60 seconds:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -231,7 +316,7 @@
 </span><span class='line'>OK 22 3 0 0 0 1 117 118</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The values in the string are the reception OK flag, the node ID (22), the 32 bit message count which increments every message, and the power supply voltage before and after the transmission.  Note the first message doesn&#8217;t have an after voltage as 0 as this lags by 1 transmission.  The voltage value is scaled to 1.0V = 0, 6.0V = 250, so 117 is (117 / 50 + 1.0) 3.34V, which is the power supply from the BP.  I also set the JNUSB to quiet mode (1q) so random noise isn&#8217;t reported to the terminal.</p>
+<p>The values in the string are the reception OK flag, the node ID (22), the 32 bit message count which increments every message, and the power supply voltage before and after the transmission.  Note the first message doesn&rsquo;t have an after voltage as 0 as this lags by 1 transmission.  The voltage value is scaled to 1.0V = 0, 6.0V = 250, so 117 is (117 / 50 + 1.0) 3.34V, which is the power supply from the BP.  I also set the JNUSB to quiet mode (1q) so random noise isn&rsquo;t reported to the terminal.</p>
 ]]></content>
   </entry>
   
@@ -240,7 +325,7 @@
     <link href="http://graham.bloice.co.uk/blog/2013/03/30/first-ramblings/"/>
     <updated>2013-03-30T23:18:00+00:00</updated>
     <id>http://graham.bloice.co.uk/blog/2013/03/30/first-ramblings</id>
-    <content type="html"><![CDATA[<p>For this first post, I&#8217;ll intoduce the general themes of this blog and a little about myself.</p>
+    <content type="html"><![CDATA[<p>For this first post, I&rsquo;ll intoduce the general themes of this blog and a little about myself.</p>
 
 <p>So what sort of things will appear here?  In no particular order:</p>
 
@@ -257,11 +342,11 @@
 
 <p>The initial items of hardware under discussion will be some small wireless sensor boards from <a href="http://jeelabs.org">Jeelabs</a>, namely the <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> and the <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a>, and their associated radio module, the <a href="http://www.hoperf.com/rf/fsk/21.htm">Hope RF RFM12B</a>.</p>
 
-<p>For radiator control I&#8217;ll be using the <a href="http://www.homexpertbyhoneywell.com/en-DE/Products/rondostat/Pages/HR-20.aspx">Honeywell HR20-Style</a> programmable thermostatic radiator valve (TRV) with <a href="http://sourceforge.net/projects/openhr20/">OpenHR20</a> firmware, fitting RFM12B boards to the TRV&#8217;s to allow wireless communications.  I&#8217;ll also be creating some room sensors (temperature, humidity and PIR for presence) with some hacked AirWick air fresheners.</p>
+<p>For radiator control I&rsquo;ll be using the <a href="http://www.homexpertbyhoneywell.com/en-DE/Products/rondostat/Pages/HR-20.aspx">Honeywell HR20-Style</a> programmable thermostatic radiator valve (TRV) with <a href="http://sourceforge.net/projects/openhr20/">OpenHR20</a> firmware, fitting RFM12B boards to the TRV&rsquo;s to allow wireless communications.  I&rsquo;ll also be creating some room sensors (temperature, humidity and PIR for presence) with some hacked AirWick air fresheners.</p>
 
 <p>Software items covered will initally be the firmware for the JeeNodes, OpenHR20 for the radiator valves and PC based Home Automation monitoring and Control of some flavour</p>
 
-<p>Who am I?  I&#8217;m a software engineer working on SCADA (Industrial Control Systems) in Aberdeen, UK.  I&#8217;ve been programming since my earliest experiments with a programmable calculator in the late 1970&#8217;s, and now number a variety of languages under my belt.</p>
+<p>Who am I?  I&rsquo;m a software engineer working on SCADA (Industrial Control Systems) in Aberdeen, UK.  I&rsquo;ve been programming since my earliest experiments with a programmable calculator in the late 1970&rsquo;s, and now number a variety of languages under my belt.</p>
 ]]></content>
   </entry>
   

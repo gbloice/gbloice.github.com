@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Arduino - Making Stuff Work</title>
+  <title>Airwick Room Node - Making Stuff Work</title>
   <meta name="author" content="Graham Bloice">
 
   
-  <meta name="description" content="Category: arduino">
+  <meta name="description" content="To create a room sensor node with the JNu, I&rsquo;ve attached a AM2302 (also known as a DHT22) temperature and humidity sensor and modified the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://graham.bloice.co.ukblog/categories/arduino">
+  <link rel="canonical" href="http://graham.bloice.co.uk/blog/2013/04/07/airwick-room-node">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Making Stuff Work" type="application/atom+xml">
@@ -77,36 +77,119 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Arduino</h1>
+    
+      <h1 class="entry-title">Airwick Room Node</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-07T00:24:22+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2013</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://graham.bloice.co.uk">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>To create a room sensor node with the JNu, I&rsquo;ve attached a <a href="http://www.adafruit.com/products/385">AM2302</a> (also known as a DHT22) temperature and humidity sensor and modified the radio blip sketch to communicate with the sensor and return the data in the radio blip payload.</p>
 
-  
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/2013/03/31/intro-to-jeenodes/">Intro to JeeNodes</a></h1>
-<time datetime="2013-03-31T13:53:00+01:00" pubdate><span class='month'>Mar</span> <span class='day'>31</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/arduino/'>arduino</a>, <a class='category' href='/blog/categories/avrdude/'>avrdude</a>, <a class='category' href='/blog/categories/buspirate/'>buspirate</a>, <a class='category' href='/blog/categories/jeenode/'>jeenode</a></span>
-</footer>
+<!--more-->
 
 
-</article>
+<p>The sensor has 4 pins, 3 of which are used; Vdd, Data, and Ground, and these are connected to the JNu +, R and G pins of the single port on the JNu.  A 10K&#x2126; pullup resistor is connected between the Vdd and Data pins.</p>
 
+<p>The sketch used is in the <a href="https://github.com/gbloice/AirWick">Airwick</a> github repo and an Arduino <a href="http://playground.arduino.cc/Main/DHTLib">DHT22 library</a>.  The sketch differs from the normal radio blip by calling the read22 routine to start a conversion attempt and then if successful, reading the resulting temperature and humidity values.  These floating point values are then multiplied by 10 and converted to integers for transmission over the radio, along with the status of the sensor conversion attempt.  The resulting payload can then be observed using the JNUSB:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>OK 22 93 1 0 0 2 117 118 224 0 243 1 0
+</span><span class='line'>OK 22 94 1 0 0 2 117 118 225 0 245 1 0
+</span><span class='line'>OK 22 95 1 0 0 2 117 118 225 0 242 1 0
+</span><span class='line'>OK 22 96 1 0 0 2 117 118 0 0 0 0 255
+</span><span class='line'>OK 22 97 1 0 0 2 117 118 226 0 237 1 0
+</span><span class='line'>OK 22 98 1 0 0 2 117 118 228 0 236 1 0</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The first part of the data is the same as the standard radio blip, the values at the back end are the temperature and the humidity (16 bit little endian values) and the sensor conversion status (single byte).  In the case of the last entry <code>OK 22 98 1 0 0 2 117 118 228 0 236 1 0</code> the value <code>228 0</code> is the temperature (22.8°C), the value <code>236 1</code> is the humidity (49.2%) and the status is <code>0</code> (OK).  Note the one entry where the temperature and humidity values are 0 and the status is 255 which indicates a sensor conversion failure.  These occur occasionally for unknown reasons.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Graham Bloice</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-07T00:24:22+01:00" pubdate data-updated="true">Apr 7<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/jeenode/'>jeenode</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/03/31/intro-to-jeenodes/" title="Previous Post: Intro to JeeNodes">&laquo; Intro to JeeNodes</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/04/12/intro-to-housemon/" title="Next Post: Intro to HouseMon">Intro to HouseMon &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -190,7 +273,10 @@
       var disqus_shortname = 'makingstuffwork';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://graham.bloice.co.uk/blog/2013/04/07/airwick-room-node/';
+        var disqus_url = 'http://graham.bloice.co.uk/blog/2013/04/07/airwick-room-node/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

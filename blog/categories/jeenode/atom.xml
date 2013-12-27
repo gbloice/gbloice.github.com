@@ -4,7 +4,7 @@
   <title><![CDATA[Category: jeenode | Making Stuff Work]]></title>
   <link href="http://graham.bloice.co.uk/blog/categories/jeenode/atom.xml" rel="self"/>
   <link href="http://graham.bloice.co.uk/"/>
-  <updated>2013-04-17T00:05:18+01:00</updated>
+  <updated>2013-12-27T00:06:54+00:00</updated>
   <id>http://graham.bloice.co.uk/</id>
   <author>
     <name><![CDATA[Graham Bloice]]></name>
@@ -18,7 +18,7 @@
     <link href="http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon/"/>
     <updated>2013-04-12T23:39:00+01:00</updated>
     <id>http://graham.bloice.co.uk/blog/2013/04/12/intro-to-housemon</id>
-    <content type="html"><![CDATA[<p>Having got a room sensor up and running on the bench, I now want to log the values somewhere.  I'm still searching for a Home Automation server that ticks all the boxes, so for now I'll use HouseMon from Jeelabs.  The birds-eye view of how it works is <a href="http://jeelabs.org/tag/housemon/">here</a>, and the source can be found on GitHub <a href="https://github.com/jcw/housemon">here</a>.</p>
+    <content type="html"><![CDATA[<p>Having got a room sensor up and running on the bench, I now want to log the values somewhere.  I&rsquo;m still searching for a Home Automation server that ticks all the boxes, so for now I&rsquo;ll use HouseMon from Jeelabs.  The birds-eye view of how it works is <a href="http://jeelabs.org/tag/housemon/">here</a>, and the source can be found on GitHub <a href="https://github.com/jcw/housemon">here</a>.</p>
 
 <!--more-->
 
@@ -35,7 +35,7 @@ exports.rf12nodes =
 </code></pre>
 
 <p>exports.locations =
-  'RF12:5:22': title: 'computer room'
+  &lsquo;RF12:5:22&rsquo;: title: &lsquo;computer room&rsquo;
 ```</p>
 
 <p>but the driver is more interesting:</p>
@@ -80,9 +80,9 @@ humi:
   max: 100
 </code></pre>
 
-<p>  feed: 'rf12.packet'</p>
+<p>  feed: &lsquo;rf12.packet&rsquo;</p>
 
-<p>  decode: (raw, cb) -></p>
+<p>  decode: (raw, cb) &ndash;></p>
 
 <pre><code>count = raw.readUInt32LE(1)
 t = raw.readUInt16LE(8, true)
@@ -103,17 +103,44 @@ cb result
 
 <p>With these additions, the Housemon instance is then configured from the admin page:</p>
 
-<p><img src="/images/HouseMon-Admin.PNG" title="HouseMon - Admin" ></p>
+<p><img src="/images/HouseMon-Admin.PNG" title="HouseMon &ndash; Admin" ></p>
 
-<p>Note the items I've installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I've attached the JeeNode to, in my case ttyUSB0.</p>
+<p>Note the items I&rsquo;ve installed, the only item that required a configuration setting was the rf12demo briq and that requires the serial port that I&rsquo;ve attached the JeeNode to, in my case ttyUSB0.</p>
 
 <p>The following images show the HouseMon Readings, Status and Graphs pages, with the temperature selected on the Graph and the timespan set to 24 hours.</p>
 
-<p><img src="/images/HouseMon-Readings.PNG" title="HouseMon - Readings" ></p>
+<p><img src="/images/HouseMon-Readings.PNG" title="HouseMon &ndash; Readings" ></p>
 
-<p><img src="/images/HouseMon-Status.PNG" title="HouseMon - Status" ></p>
+<p><img src="/images/HouseMon-Status.PNG" title="HouseMon &ndash; Status" ></p>
 
-<p><img src="/images/HouseMon-Graph.PNG" title="HouseMon - Graphs" ></p>
+<p><img src="/images/HouseMon-Graph.PNG" title="HouseMon &ndash; Graphs" ></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Airwick room node]]></title>
+    <link href="http://graham.bloice.co.uk/blog/2013/04/07/airwick-room-node/"/>
+    <updated>2013-04-07T00:24:22+01:00</updated>
+    <id>http://graham.bloice.co.uk/blog/2013/04/07/airwick-room-node</id>
+    <content type="html"><![CDATA[<p>To create a room sensor node with the JNu, I&rsquo;ve attached a <a href="http://www.adafruit.com/products/385">AM2302</a> (also known as a DHT22) temperature and humidity sensor and modified the radio blip sketch to communicate with the sensor and return the data in the radio blip payload.</p>
+
+<!--more-->
+
+
+<p>The sensor has 4 pins, 3 of which are used; Vdd, Data, and Ground, and these are connected to the JNu +, R and G pins of the single port on the JNu.  A 10K&#x2126; pullup resistor is connected between the Vdd and Data pins.</p>
+
+<p>The sketch used is in the <a href="https://github.com/gbloice/AirWick">Airwick</a> github repo and an Arduino <a href="http://playground.arduino.cc/Main/DHTLib">DHT22 library</a>.  The sketch differs from the normal radio blip by calling the read22 routine to start a conversion attempt and then if successful, reading the resulting temperature and humidity values.  These floating point values are then multiplied by 10 and converted to integers for transmission over the radio, along with the status of the sensor conversion attempt.  The resulting payload can then be observed using the JNUSB:</p>
+
+<p><code>
+OK 22 93 1 0 0 2 117 118 224 0 243 1 0
+OK 22 94 1 0 0 2 117 118 225 0 245 1 0
+OK 22 95 1 0 0 2 117 118 225 0 242 1 0
+OK 22 96 1 0 0 2 117 118 0 0 0 0 255
+OK 22 97 1 0 0 2 117 118 226 0 237 1 0
+OK 22 98 1 0 0 2 117 118 228 0 236 1 0
+</code></p>
+
+<p>The first part of the data is the same as the standard radio blip, the values at the back end are the temperature and the humidity (16 bit little endian values) and the sensor conversion status (single byte).  In the case of the last entry <code>OK 22 98 1 0 0 2 117 118 228 0 236 1 0</code> the value <code>228 0</code> is the temperature (22.8°C), the value <code>236 1</code> is the humidity (49.2%) and the status is <code>0</code> (OK).  Note the one entry where the temperature and humidity values are 0 and the status is 255 which indicates a sensor conversion failure.  These occur occasionally for unknown reasons.</p>
 ]]></content>
   </entry>
   
@@ -122,42 +149,42 @@ cb result
     <link href="http://graham.bloice.co.uk/blog/2013/03/31/intro-to-jeenodes/"/>
     <updated>2013-03-31T13:53:00+01:00</updated>
     <id>http://graham.bloice.co.uk/blog/2013/03/31/intro-to-jeenodes</id>
-    <content type="html"><![CDATA[<p>To make a room sensor I'm going to use a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a> (JNu) reporting back to a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> (JNUSB) running on my home server.</p>
+    <content type="html"><![CDATA[<p>To make a room sensor I&rsquo;m going to use a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_Micro">JeeNode Micro</a> (JNu) reporting back to a <a href="http://jeelabs.net/projects/hardware/wiki/JeeNode_USB">JeeNode USB</a> (JNUSB) running on my home server.</p>
 
 <!--more-->
 
 
 <p>After receiving the items from the <a href="http://jeelabs.com/">JeeLabs shop</a> I connected them up to test on the bench.  I soldered the aerial wires to each item, cutting them to 82mm for the 868MHz radios.</p>
 
-<p>The JNUSB comes ready flashed with the <a href="https://github.com/jcw/jeelib/tree/master/examples/RF12/RF12demo">RFM12Demo</a> sketch from the <a href="https://github.com/jcw/jeelib">JeeLib</a> examples directory so simply requires plugging in to a USB port and then opening a terminal to the appropriate COM port created by the USB drivers.  As I'm testing on a Windows system, I looked in Device Manager | Ports to see what pseudo com port number was, and then opened <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a> for that com port.  Set the baud rate to 57600 and hit enter to see the standard RF12demo response:</p>
+<p>The JNUSB comes ready flashed with the <a href="https://github.com/jcw/jeelib/tree/master/examples/RF12/RF12demo">RFM12Demo</a> sketch from the <a href="https://github.com/jcw/jeelib">JeeLib</a> examples directory so simply requires plugging in to a USB port and then opening a terminal to the appropriate COM port created by the USB drivers.  As I&rsquo;m testing on a Windows system, I looked in Device Manager | Ports to see what pseudo com port number was, and then opened <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a> for that com port.  Set the baud rate to 57600 and hit enter to see the standard RF12demo response:</p>
 
 <p>```
 [RF12demo.7] A i1 g5 @ 868 MHz</p>
 
 <p>Available commands:
-  <nn> i     - set node ID (standard node ids are 1..26)</p>
+  <nn> i     &ndash; set node ID (standard node ids are 1..26)</p>
 
 <pre><code>           (or enter an uppercase 'A'..'Z' to set id)
 </code></pre>
 
-<p>  <n> b      - set MHz band (4 = 433, 8 = 868, 9 = 915)
-  <nnn> g    - set network group (RFM12 only allows 212, 0 = any)
-  <n> c      - set collect mode (advanced, normally 0)
-  t          - broadcast max-size test packet, with ack
-  ...,<nn> a - send data packet to node <nn>, with ack
-  ...,<nn> s - send data packet to node <nn>, no ack
-  <n> l      - turn activity LED on PB1 on or off
-  <n> q      - set quiet mode (1 = don't report bad packets)
+<p>  <n> b      &ndash; set MHz band (4 = 433, 8 = 868, 9 = 915)
+  <nnn> g    &ndash; set network group (RFM12 only allows 212, 0 = any)
+  <n> c      &ndash; set collect mode (advanced, normally 0)
+  t          &ndash; broadcast max-size test packet, with ack
+  &hellip;,<nn> a &ndash; send data packet to node <nn>, with ack
+  &hellip;,<nn> s &ndash; send data packet to node <nn>, no ack
+  <n> l      &ndash; turn activity LED on PB1 on or off
+  <n> q      &ndash; set quiet mode (1 = don&rsquo;t report bad packets)
 Remote control commands:
-  <hchi>,<hclo>,<addr>,<cmd> f     - FS20 command (868 MHz)
-  <addr>,<dev>,<on> k              - KAKU command (433 MHz)
+  <hchi>,<hclo>,<addr>,<cmd> f     &ndash; FS20 command (868 MHz)
+  <addr>,<dev>,<on> k              &ndash; KAKU command (433 MHz)
 Current configuration:
  A i1 g5 @ 868 MHz
 ```</p>
 
-<p>Note that I've issued the group command (5g) to set the group to the group used by the JNu in the next section.</p>
+<p>Note that I&rsquo;ve issued the group command (5g) to set the group to the group used by the JNu in the next section.</p>
 
-<p>For the JNu, things are a little more complicated as it doesn't appear to come flashed with a sketch, nor does it have a bootloader.  JeeLabs has a guide to compiling and flashing the micro (<a href="http://jeelabs.org/2013/03/03/programming-the-jnu-v3-part-1/">Pt1</a>, <a href="http://jeelabs.org/2013/03/07/programming-the-jn%C2%B5-v3-part-2/">Pt2</a>, <a href="http://jeelabs.org/2013/03/20/programming-the-jnu-again/">Pt3</a> and <a href="http://jeelabs.org/2013/03/21/programming-the-jn%C2%B5-at-last/">Pt4</a>) but I had some issues completing the flash as I'm using a <a href="http://dangerousprototypes.com/docs/Bus_Pirate">Bus Pirate</a>(BP) as my ISP programmer and I couldn't persuade the IDE to upload the hex file.  To workaround this I followed the instructions from Pt2 and manually fired up avrdude to upload the sketch using the BP.  After uploading the sketch, the terminal connected to the JNUSB started showing the "blip" messages from the JNu, with a new message every 60 seconds:</p>
+<p>For the JNu, things are a little more complicated as it doesn&rsquo;t appear to come flashed with a sketch, nor does it have a bootloader.  JeeLabs has a guide to compiling and flashing the micro (<a href="http://jeelabs.org/2013/03/03/programming-the-jnu-v3-part-1/">Pt1</a>, <a href="http://jeelabs.org/2013/03/07/programming-the-jn%C2%B5-v3-part-2/">Pt2</a>, <a href="http://jeelabs.org/2013/03/20/programming-the-jnu-again/">Pt3</a> and <a href="http://jeelabs.org/2013/03/21/programming-the-jn%C2%B5-at-last/">Pt4</a>) but I had some issues completing the flash as I&rsquo;m using a <a href="http://dangerousprototypes.com/docs/Bus_Pirate">Bus Pirate</a>(BP) as my ISP programmer and I couldn&rsquo;t persuade the IDE to upload the hex file.  To workaround this I followed the instructions from Pt2 and manually fired up avrdude to upload the sketch using the BP.  After uploading the sketch, the terminal connected to the JNUSB started showing the &ldquo;blip&rdquo; messages from the JNu, with a new message every 60 seconds:</p>
 
 <p><code>
 OK 22 1 0 0 0 1 118 0
@@ -165,7 +192,7 @@ OK 22 2 0 0 0 1 117 118
 OK 22 3 0 0 0 1 117 118
 </code></p>
 
-<p>The values in the string are the reception OK flag, the node ID (22), the 32 bit message count which increments every message, and the power supply voltage before and after the transmission.  Note the first message doesn't have an after voltage as 0 as this lags by 1 transmission.  The voltage value is scaled to 1.0V = 0, 6.0V = 250, so 117 is (117 / 50 + 1.0) 3.34V, which is the power supply from the BP.  I also set the JNUSB to quiet mode (1q) so random noise isn't reported to the terminal.</p>
+<p>The values in the string are the reception OK flag, the node ID (22), the 32 bit message count which increments every message, and the power supply voltage before and after the transmission.  Note the first message doesn&rsquo;t have an after voltage as 0 as this lags by 1 transmission.  The voltage value is scaled to 1.0V = 0, 6.0V = 250, so 117 is (117 / 50 + 1.0) 3.34V, which is the power supply from the BP.  I also set the JNUSB to quiet mode (1q) so random noise isn&rsquo;t reported to the terminal.</p>
 ]]></content>
   </entry>
   
